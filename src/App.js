@@ -23,15 +23,6 @@ class App extends React.Component{
       ...initialState
     }
   }
-
-
-  componentDidMount = () => {
-
-  }
-  componentWillUnmount= () => {
-    
-  }
-
   render(){
     return (
       <div className="App">
