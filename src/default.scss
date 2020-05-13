@@ -21,7 +21,7 @@ body{
 }
 a{
     text-decoration: none;
-    border-bottom: dotted thin #333;
+    color: #333;
 }
 
 a, a:hover{
@@ -29,8 +29,17 @@ a, a:hover{
     -moz-transition: all 4s ease-in-out;
     transition: all 4s ease-in-out;
 }
-
 .main{
     max-width: 1024px;
     margin: auto;
+}
+.container {
+    max-width: 1024px;
+    margin: auto;
+}
+.button{
+    background-color: #3498db;
+    color: #FFF;
+    padding: 10px 15px;
+    border-radius: 4px;
 }

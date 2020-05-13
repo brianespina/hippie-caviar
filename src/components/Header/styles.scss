@@ -1,5 +1,20 @@
 header{
     height: 6.5rem;
     border-bottom: solid thin #333;
-    line-height: 6.5rem;
+    .container {
+        display: flex;
+    }
+    .logo{
+        flex: 1;
+        line-height: 6.5rem;
+    }
+    .call-to-action{
+        display: flex;
+        ul{
+            list-style: none;
+            align-self: center;
+        }
+    }
+    
+    
 }
