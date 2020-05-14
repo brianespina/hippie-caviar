@@ -1,6 +1,5 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { auth } from './firebase/utils'
 
 //layouts
 import MainLayout from './layouts/MainLayout'
@@ -11,19 +10,8 @@ import Registration from './components/pages/Registration'
 import Login from './components/pages/Login'
 import './default.scss'
 
-const initialState = {
-  currentUser: null
-}
-
 class App extends React.Component{
 
-  constructor(props){
-    super(props)
-    this.state = {
-      ...initialState
-    }
-  }
-  
   render(){
     return (
       <div className="App">
