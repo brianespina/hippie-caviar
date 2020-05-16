@@ -1,10 +1,9 @@
 import React from 'react'
 import './styles.scss'
 import { Link } from 'react-router-dom'
-import { auth } from '../../firebase/utils'
+import { signOut } from '../../firebase/utils'
 
-const Header = props => {
-    const { currentUser } = props
+function Header(props){
     return(
         <header>
             <div className="container">
@@ -14,14 +13,14 @@ const Header = props => {
                     </Link>
                 </div>
                 <div className="call-to-action">
-                    {currentUser && (
-                        <p onClick={()=> auth.signOut()}>
-                            Log out
-                        </p>
-                        
-                    )}
-
-                    {!currentUser && (
+                    {props.user && 
+                        <ul>
+                            <li onClick={signOut}>
+                                Log Out
+                            </li>
+                        </ul>
+                    }
+                    {!props.user &&
                         <ul>
                             <li>
                                 <Link to="/registration">
@@ -34,8 +33,8 @@ const Header = props => {
                                 </Link>
                             </li>
                         </ul>
-                    )}
-
+                    }
+                    
                 </div>
             </div>
         </header>

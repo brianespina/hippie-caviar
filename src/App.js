@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 //layouts
 import MainLayout from './layouts/MainLayout'
@@ -10,68 +10,40 @@ import Login from './components/pages/Login'
 import './default.scss'
 import { auth } from './firebase/utils'
 
-const initialState = {
-  currentUser: null
-}
 
-class App extends React.Component{
+function App(){
 
-  constructor(props){
-    super(props)
-    this.state = {
-      ...initialState
-    }
-  }
+  const [user, setUser] = useState(null)
 
-  authListener = null
-  
-  componentDidMount(){
-    this.authListener = auth.onAuthStateChanged(userAuth => {
-      if(!userAuth) {
-        this.setState({
-          ...initialState
-        })
-      }
-
-      this.setState({
-        currentUser: userAuth
-      })
+  useEffect(()=>{
+    auth.onAuthStateChanged(userAuth => {
+      userAuth ? setUser(userAuth) : setUser(null)
     })
-  }
+  })
 
-  componentWillUnmount(){
-    this.authListener()
-  }
-  
-  render(){
-
-    let { currentUser } = this.state
-
-    return (
-      <div className="App">
-        <Switch>
-          <Route exact path="/" render={()=>(
-            <MainLayout currentUser={currentUser}>
-              <Homepage/>
-            </MainLayout>
-          )}/>
-          <Route exact path="/registration" render={()=>(
-            <MainLayout currentUser={currentUser}>
-              <Registration/>
-            </MainLayout>
-          )}/>
-          <Route exact path="/login" 
-          render={()=> currentUser ? <Redirect to="/" /> : (
-            <MainLayout currentUser={currentUser}>
-              <Login/>
-            </MainLayout>
-          )}/>
-        </Switch>
-      </div>
-    )
-  }
-
+  return (
+    <div className="App">
+      <Switch>
+        <Route exact path="/" render={()=>(
+          <MainLayout user={user}>
+            <Homepage/>
+          </MainLayout>
+        )}/>
+        <Route exact path="/registration" render={()=>(
+          <MainLayout user={user}>
+            <Registration/>
+          </MainLayout>
+        )}/>
+        <Route exact path="/login" render={()=> 
+          user 
+          ? <Redirect to="/" />
+          : (<MainLayout user={user}>
+              <Login />
+            </MainLayout>)
+        } />
+      </Switch>
+    </div>
+  )
 }
-
 
 export default App;
