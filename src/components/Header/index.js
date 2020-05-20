@@ -16,7 +16,7 @@ function Header(props){
                     {props.user && 
                         <ul>
                             <li onClick={signOut}>
-                                Log Out
+                                Welcome! { props.user.displayName } | Log Out
                             </li>
                         </ul>
                     }

@@ -9,11 +9,10 @@ export const auth = new firebase.auth()
 export const firestore = new firebase.firestore()
 
 const googleProvider = new firebase.auth.GoogleAuthProvider()
-googleProvider.setCustomParameters({promp: 'select_user'})
+googleProvider.setCustomParameters({prompt: 'select_account'})
 
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 export const signOut = () => auth.signOut()
-
 
 
 
