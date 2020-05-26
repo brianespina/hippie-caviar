@@ -21,7 +21,7 @@ function Signin(props){
             await auth.signInWithEmailAndPassword(email, password).catch(error => {
                 resetState()
                 const errorMessage = error.message
-                setErrors(errorMessage)
+                if(errorMessage){setErrors(errorMessage)}
             })
         }catch(err){
             // console.log(err)
