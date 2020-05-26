@@ -14,6 +14,31 @@ googleProvider.setCustomParameters({prompt: 'select_account'})
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 export const signOut = () => auth.signOut()
 
+export const handleUserProfile = async (userAuth, additionalData) => {
+    if(!userAuth){return}
+
+    const { uid } = userAuth
+
+    const userRef = firestore.doc(`users/${uid}`)
+    const snapshot = await userRef.get()
+
+    if(!snapshot.exists){
+        const { displayName, email } = userAuth
+        const timeStamp = new Date()
+        try{
+            await userRef.set({
+                displayName,
+                email,
+                createDate: timeStamp,
+                ...additionalData
+            })
+        }catch(err){
+            // console.log(err)
+        }
+    }
+    return userRef
+}
+
 
 
 

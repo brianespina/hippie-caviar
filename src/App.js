@@ -8,36 +8,45 @@ import Homepage from './components/pages/Homepage'
 import Registration from './components/pages/Registration'
 import Login from './components/pages/Login'
 import './default.scss'
-import { auth } from './firebase/utils'
+import { auth, handleUserProfile } from './firebase/utils'
 
-
-function App(){
-
-  const [user, setUser] = useState(null)
+const App = () =>{
+  const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(()=>{
-    auth.onAuthStateChanged(userAuth => {
-      userAuth ? setUser(userAuth) : setUser(null)
+    const authListener = auth.onAuthStateChanged(async userAuth => {
+      if(userAuth){
+        const userRef = await handleUserProfile(userAuth)
+        userRef.onSnapshot(snapshot => {
+          setCurrentUser({
+              id: snapshot.id,
+            ...snapshot.data()
+          })
+        })
+      }
+      setCurrentUser(userAuth)
     })
-  })
-
+    return () => {
+      authListener()
+    }
+  }, [])
   return (
     <div className="App">
       <Switch>
         <Route exact path="/" render={()=>(
-          <MainLayout user={user}>
+          <MainLayout user={currentUser}>
             <Homepage/>
           </MainLayout>
         )}/>
         <Route exact path="/registration" render={()=>(
-          <MainLayout user={user}>
+          <MainLayout user={currentUser}>
             <Registration/>
           </MainLayout>
         )}/>
         <Route exact path="/login" render={()=> 
-          user 
+          currentUser 
           ? <Redirect to="/" />
-          : (<MainLayout user={user}>
+          : (<MainLayout user={currentUser}>
               <Login />
             </MainLayout>)
         } />
@@ -45,5 +54,6 @@ function App(){
     </div>
   )
 }
+
 
 export default App;
