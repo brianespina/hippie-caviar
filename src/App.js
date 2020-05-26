@@ -38,11 +38,13 @@ const App = () =>{
             <Homepage/>
           </MainLayout>
         )}/>
-        <Route exact path="/registration" render={()=>(
-          <MainLayout user={currentUser}>
+        <Route exact path="/registration" render={()=>
+        currentUser
+        ? <Redirect to="/" />
+        : (<MainLayout user={currentUser}>
             <Registration/>
-          </MainLayout>
-        )}/>
+          </MainLayout>)
+        }/>
         <Route exact path="/login" render={()=> 
           currentUser 
           ? <Redirect to="/" />

@@ -1,10 +1,11 @@
 import React from 'react'
+import Signup from '../../Signup'
 import './styles.scss'
 
 const Registration = props => {
     return(
         <div>
-            <h1>Registration</h1>
+            <Signup />
         </div>
     )
 }
