@@ -7,6 +7,7 @@ import MainLayout from './layouts/MainLayout'
 import Homepage from './components/pages/Homepage'
 import Registration from './components/pages/Registration'
 import Login from './components/pages/Login'
+import Recovery from './components/pages/Recovery'
 import './default.scss'
 import { auth, handleUserProfile } from './firebase/utils'
 
@@ -52,6 +53,11 @@ const App = () =>{
               <Login />
             </MainLayout>)
         } />
+        <Route exact path="/recovery" render={()=>
+          <MainLayout>
+            <Recovery/>
+          </MainLayout>
+        }/>
       </Switch>
     </div>
   )

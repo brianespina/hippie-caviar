@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import FormInput from '../forms/FormInput'
 import Button from '../forms/Button'
 import { auth, handleUserProfile } from '../../firebase/utils'
+import AuthWrapper from '../AuthWrapper'
 
 import './styles.scss'
 
@@ -36,57 +37,57 @@ const Signup = () =>{
             // console.log(err)
         }
     }
-
+    const configAuthWrapper = {
+        headline: "Sign up"
+    }
     return(
-        <div className="signup">
-            <div className="wrap">
-                <h2>Signup</h2>
-                    {errors.length > 0 && (
-                        <ul>
-                            {errors.map((err, index) => {
-                                return(
-                                    <li key={index}>
-                                        {err}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    )}
-                <form onSubmit={handleFormSubmit}>
-                    <FormInput 
-                        type="text"
-                        name="displayName"
-                        value={displayName}
-                        placeholder="Full Name"
-                        onChange={e => setDisplayName(e.target.value)}
-                    />
-                    <FormInput 
-                        type="text"
-                        name="email"
-                        value={email}
-                        placeholder="Email"
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                    <FormInput 
-                        type="password"
-                        name="password"
-                        value={password}
-                        placeholder="Password"
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                    <FormInput 
-                        type="password"
-                        name="confirmPassword"
-                        value={confirmPassword}
-                        placeholder="Password"
-                        onChange={e => setConfirmPassword(e.target.value)}
-                    />
-                    <Button>
-                        Register
-                    </Button>
-                </form>
-            </div>
-        </div>
+
+        <AuthWrapper {...configAuthWrapper}>
+            {errors.length > 0 && (
+                <ul>
+                    {errors.map((err, index) => {
+                        return(
+                            <li key={index}>
+                                {err}
+                            </li>
+                        )
+                    })}
+                </ul>
+            )}
+            <form onSubmit={handleFormSubmit}>
+                <FormInput 
+                    type="text"
+                    name="displayName"
+                    value={displayName}
+                    placeholder="Full Name"
+                    onChange={e => setDisplayName(e.target.value)}
+                />
+                <FormInput 
+                    type="text"
+                    name="email"
+                    value={email}
+                    placeholder="Email"
+                    onChange={e => setEmail(e.target.value)}
+                />
+                <FormInput 
+                    type="password"
+                    name="password"
+                    value={password}
+                    placeholder="Password"
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <FormInput 
+                    type="password"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    placeholder="Password"
+                    onChange={e => setConfirmPassword(e.target.value)}
+                />
+                <Button>
+                    Register
+                </Button>
+            </form>
+        </AuthWrapper>
     )
 }
 

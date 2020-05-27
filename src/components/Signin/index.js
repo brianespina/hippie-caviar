@@ -3,6 +3,8 @@ import './styles.scss'
 import Button from './../../components/forms/Button'
 import { signInWithGoogle, auth } from './../../firebase/utils'
 import FormInput from '../forms/FormInput'
+import { Link } from 'react-router-dom'
+import AuthWrapper from '../AuthWrapper'
 
 
 function Signin(props){
@@ -29,43 +31,45 @@ function Signin(props){
         
     }
 
+    const configAuthWrapper = {
+        headline: 'Sign in'
+    }
+
     return(
-        <div className="signin">
-            <div className="wrap">
-                <h2>Login</h2>
-                <div className="formwrap">
-                    {errors && (
-                        <p>
-                            {errors}
-                        </p>
-                    )}
-                    <form onSubmit={handleSubmit}>
-                        <FormInput
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                        <FormInput
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                        <Button>
-                            Sign In
-                        </Button>
-                    </form>
-                    <div className="socialSignin">
-                        <Button onClick={signInWithGoogle}>
-                            Sign In with Google
-                        </Button>
-                    </div>
-                </div>
+        <AuthWrapper {...configAuthWrapper}>
+            {errors && (
+                <p>
+                    {errors}
+                </p>
+            )}
+            <form onSubmit={handleSubmit}>
+                <FormInput
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                />
+                <FormInput
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <Button>
+                    Sign In
+                </Button>
+            </form>
+            <div className="socialSignin">
+                <Button onClick={signInWithGoogle}>
+                    Sign In with Google
+                </Button>
             </div>
-        </div>
+            <Link>
+                Forgot password? 
+            </Link>
+        </AuthWrapper>
     )
 }
 
