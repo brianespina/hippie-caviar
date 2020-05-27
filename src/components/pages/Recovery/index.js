@@ -1,13 +1,9 @@
 import React from 'react'
-import AuthWrapper from '../../AuthWrapper'
+import EmailPassword from '../../EmailPassword'
 
 function Recovery(props){
     return(
-        <div>
-            <form>
-
-            </form>
-        </div>
+        <EmailPassword/>
     )
 }
 export default Recovery

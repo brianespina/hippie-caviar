@@ -66,7 +66,7 @@ function Signin(props){
                     Sign In with Google
                 </Button>
             </div>
-            <Link>
+            <Link to="/recovery">
                 Forgot password? 
             </Link>
         </AuthWrapper>
