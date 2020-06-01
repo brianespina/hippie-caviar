@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { signUpUser} from '../../redux/User/user.actions'
+import { withRouter } from 'react-router-dom'
 import FormInput from '../forms/FormInput'
 import Button from '../forms/Button'
 import { auth, handleUserProfile } from '../../firebase/utils'
@@ -6,8 +9,13 @@ import AuthWrapper from '../AuthWrapper'
 
 import './styles.scss'
 
-const Signup = () =>{
-
+const mapsState = ({ user }) => ({
+    signUpSuccess: user.signUpSuccess,
+    signUpError: user.signUpError
+})
+const Signup = props =>{
+    const {signUpSuccess, signUpError} = useSelector(mapsState)
+    const dispatch = useDispatch()
     const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -22,20 +30,28 @@ const Signup = () =>{
         setErrors([])
     }
 
-    const handleFormSubmit = async event => {
+    useEffect(()=>{
+        if(signUpSuccess){
+            resetState() 
+            props.history.push('/')
+        }
+    }, [signUpSuccess])
+
+    useEffect(()=>{
+        if(Array.isArray(signUpError) && signUpError.length > 0){
+            setErrors(signUpError)
+        }
+    }, [signUpError])
+
+    const handleFormSubmit = event => {
         event.preventDefault()
-        if(password !== confirmPassword){
-            const error = ['Password Don\'t match']
-            setErrors(error)
-            return
-        }
-        try{
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
-            await handleUserProfile(user, { displayName })
-            resetState()
-        }catch(err){
-            // console.log(err)
-        }
+        dispatch(signUpUser({
+            displayName,
+            email,
+            password,
+            confirmPassword
+        }))
+        
     }
     const configAuthWrapper = {
         headline: "Sign up"
@@ -91,5 +107,5 @@ const Signup = () =>{
     )
 }
 
-export default Signup
+export default withRouter(Signup)
 

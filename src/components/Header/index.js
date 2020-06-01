@@ -1,9 +1,17 @@
 import React from 'react'
 import './styles.scss'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { signOut } from '../../firebase/utils'
 
+
+const mapState = ({ user }) => ({
+    currentUser: user.currentUser
+})
+
 function Header(props){
+    const { currentUser } = useSelector(mapState)
+
     return(
         <header>
             <div className="container">
@@ -13,14 +21,19 @@ function Header(props){
                     </Link>
                 </div>
                 <div className="call-to-action">
-                    {props.user && 
+                    {currentUser && 
                         <ul>
+                            <li>
+                                <Link to='/dashboard'>
+                                    Dashboard
+                                </Link>
+                            </li>
                             <li onClick={signOut}>
-                                Welcome! { props.user.displayName } | Log Out
+                                Welcome! { currentUser.displayName } | Log Out
                             </li>
                         </ul>
                     }
-                    {!props.user &&
+                    {!currentUser &&
                         <ul>
                             <li>
                                 <Link to="/registration">

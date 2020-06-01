@@ -1,34 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { signInUser } from '../../redux/User/user.actions'
 import './styles.scss'
 import Button from './../../components/forms/Button'
-import { signInWithGoogle, auth } from './../../firebase/utils'
+import { signInWithGoogle } from './../../firebase/utils'
 import FormInput from '../forms/FormInput'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import AuthWrapper from '../AuthWrapper'
 
+const mapState = ({ user }) => ({
+    signInSuccess: user.signInSuccess
+})
 
-function Signin(props){
+const Signin = props => {
+
+    const { signInSuccess } = useSelector(mapState)
+    const dispatch = useDispatch()
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState('')
 
+
+    useEffect(()=>{
+        if(signInSuccess){
+            resetState()
+            props.history.push('/')
+        }
+    }, [signInSuccess])
+    
     const resetState = () =>{
         setEmail('')
         setPassword('')
     }
 
-    const handleSubmit = async event =>{
+    const handleSubmit = event =>{
         event.preventDefault()
-        try{
-            await auth.signInWithEmailAndPassword(email, password).catch(error => {
-                resetState()
-                const errorMessage = error.message
-                if(errorMessage){setErrors(errorMessage)}
-            })
-        }catch(err){
-            // console.log(err)
-        }
-        
+        dispatch(signInUser({email, password}))
     }
 
     const configAuthWrapper = {
@@ -73,4 +81,4 @@ function Signin(props){
     )
 }
 
-export default Signin
+export default withRouter(Signin)
