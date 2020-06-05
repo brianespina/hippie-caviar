@@ -1,16 +1,19 @@
 import React from 'react'
 import './styles.scss'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { signUserOut} from '../../redux/User/user.actions'
 import { Link } from 'react-router-dom'
 import { signOut } from '../../firebase/utils'
 
 
+
 const mapState = ({ user }) => ({
-    currentUser: user.currentUser
+    currentUser: user.currentUser,
+    signInSuccess: user.signInSuccess
 })
 
 function Header(props){
-    const { currentUser } = useSelector(mapState)
+    const { currentUser, signInSuccess } = useSelector(mapState)
 
     return(
         <header>
@@ -28,7 +31,7 @@ function Header(props){
                                     Dashboard
                                 </Link>
                             </li>
-                            <li onClick={signOut}>
+                            <li onClick={() => signOut()}>
                                 Welcome! { currentUser.displayName } | Log Out
                             </li>
                         </ul>

@@ -15,6 +15,7 @@ const mapsState = ({ user }) => ({
 })
 const Signup = props =>{
     const {signUpSuccess, signUpError} = useSelector(mapsState)
+    
     const dispatch = useDispatch()
     const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
