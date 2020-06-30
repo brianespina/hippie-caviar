@@ -36,7 +36,6 @@ class App extends React.Component{
             id: snapShot.id,
             ...snapShot.data()
           })
-          console.log(this.state)
         })
 
       }
@@ -55,7 +54,7 @@ class App extends React.Component{
         <Switch>
           <Route exact path='/' component={Homepage}/>
           <Route exact path='/checkout' component={CheckoutPage}/>
-          <Route exact path='/shop' component={ShopPage}/>
+          <Route path='/shop' component={ShopPage}/>
           <Route exact path='/signin' render={() => 
             this.props.currentUser 
             ? <Redirect to='/' />
