@@ -15,8 +15,9 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 //redux
 import { createStructuredSelector } from 'reselect'
-import { setCurrentUser } from './redux/user/user.action'  
 import { selectCurrentUser } from './redux/user/user.selector'
+import { setCurrentUser } from './redux/user/user.actions'  
+
  
 import './default.scss'
 
