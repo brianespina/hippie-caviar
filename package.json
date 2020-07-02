@@ -40,5 +40,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Eccomerce site for Hippie Caviar",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianespina/hippie-caviar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brianespina/hippie-caviar/issues"
+  },
+  "homepage": "https://github.com/brianespina/hippie-caviar#readme"
 }
