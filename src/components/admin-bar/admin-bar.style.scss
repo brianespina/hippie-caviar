@@ -1,0 +1,35 @@
+.admin-bar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 10px 80px;
+    background-color: #30336b;
+    display: flex;
+
+    color: #FFF;
+
+    a{
+        color: #FFF;
+    }
+
+    &__links{
+        list-style: none;
+        margin: 0;
+        display: flex;
+        flex: 1;
+        li{
+            &:not(:last-child){
+                margin-right: 10px;
+            }
+        }
+    }
+
+    &__dashboard-link {
+        a {
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+    
+}

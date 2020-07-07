@@ -1,15 +1,11 @@
 import React from 'react'
-import Header from './../components/Header'
-import Footer from './../components/Footer'
+import Header from '../components/header/header.component'
 
 function MainLayout(props) {
     return(
         <div>
-        <Header {...props}/>
-        <div className="main">
+        <Header/>
             {props.children}
-        </div>
-        <Footer/>
         </div>
         
     )
