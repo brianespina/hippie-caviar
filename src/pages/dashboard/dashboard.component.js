@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 
 import {selectCurrentUser} from '../../redux/user/user.selector'
 import { createStructuredSelector } from 'reselect'
+import IsAdmin from '../../components/is-admin/is-admin.component'
 
-import SignIn from '../../components/sign-in/sign-in.component'
 
 const Dashboard = () => {
     return(
@@ -19,4 +19,4 @@ const mapStateToProps = createStructuredSelector({
 })
     
 
-export default connect(mapStateToProps)(Dashboard)
+export default IsAdmin(connect(mapStateToProps)(Dashboard), true)

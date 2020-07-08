@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import IsAdmin from '../is-admin/is-admin.component'
+
 import './admin-bar.style.scss'
 
 const AdminBar = ({ user }) => {
-    const { isAdmin, displayName } = user
     return(
         <Fragment>
-            {isAdmin &&
-                <div className="admin-bar">
+            <div className="admin-bar">
                     <div className="admin-bar__dashboard-link">
                         <Link to="/dashboard">Dashboard</Link>
                     </div>
@@ -23,12 +23,11 @@ const AdminBar = ({ user }) => {
                         </li>
                     </ul>
                     <div className="admin-bar__logged-in-as">
-                        Hello! { displayName }
+                        Hello! { user && user.displayName }
                     </div>
                 </div>
-            }
         </Fragment>
     )
 }
 
-export default AdminBar
+export default IsAdmin(AdminBar)

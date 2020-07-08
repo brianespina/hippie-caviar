@@ -11,18 +11,18 @@ import Dashboard from './pages/dashboard/dashboard.component'
 
 //components
 import AdminBar from './components/admin-bar/admin-bar.component'
-import IsAdmin from './components/is-admin-wrapper/is-admin.component'
 
 //Layouts
 import Header from './components/header/header.component'
 
 //firebase
-import { auth, createUserProfileDocument } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils'
 
 //redux
 import { createStructuredSelector } from 'reselect'
 import { setCurrentUser } from './redux/user/user.actions'  
 import { selectCurrentUser } from './redux/user/user.selector'
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors'
  
 import './default.scss'
 
@@ -44,10 +44,10 @@ class App extends React.Component{
             ...snapShot.data()
           })
         })
-
       }
       setCurrentUser(userAuth)
     })
+    
   }
 
   componentWillUnmount(){
@@ -68,22 +68,20 @@ class App extends React.Component{
               ? <Redirect to='/' />
               : <SignInAndSignUp />
             }/>
-            <IsAdmin msg>
-              <Route exact path='/dashboard' component={Dashboard} />
-            </IsAdmin>
-            
+            <Route exact path='/dashboard' component={Dashboard} />
+            <Route path='/404' render={() => '404'}/>
+            <Redirect to='/404' />
           </Switch>
-
-          <IsAdmin>
-            <AdminBar user={this.props.currentUser}/>
-          </IsAdmin>
+          <AdminBar/>
+          
       </div>
     )
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview
 })
 
 const mapDispatchToProps = dispatch => ({
